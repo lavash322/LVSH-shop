@@ -55,15 +55,13 @@
         address: this.address.value,
       };
 
-      alert('Отправляем заказ:\n' + JSON.stringify(data, null, 2));
-
       if (tg && tg.sendData) {
         tg.sendData(JSON.stringify(data));
+        alert('Спасибо! Ваш заказ отправлен.');
+        this.reset();
       } else {
-        alert("⚠️ WebApp Telegram не найден. Откройте магазин через Telegram, чтобы отправить заказ.");
+        alert("⚠️ Пожалуйста, откройте магазин через Telegram, чтобы сделать заказ.");
       }
-
-      this.reset();
     });
   </script>
 </body>
