@@ -55,8 +55,18 @@
         address: this.address.value,
       };
 
-      // Отправляем данные в Telegram-бота
-      tg.sendData(JSON.stringify(data));
+      const message = `
+📦 Новый заказ:
+ФИО: ${data.fio}
+Телефон: ${data.phone}
+Город: ${data.city}
+Адрес: ${data.address}
+Товар: ${data.product}
+Размер: ${data.size}
+Цена: ${data.price}₽ + ${data.delivery}₽ доставка
+      `;
+
+      tg.sendData(message.trim());
 
       alert('Заказ отправлен! Спасибо.');
       this.reset();
