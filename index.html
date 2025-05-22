@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LVSH Магазин</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 20px auto; padding: 10px; }
+    .card { border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+    .card img { width: 100%; border-radius: 8px; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+    button { margin-top: 15px; padding: 10px; width: 100%; background: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>LVSH «графит»</h1>
+  <div class="card">
+    <img src="https://via.placeholder.com/400x300?text=LVSH+%22графит%22" alt="LVSH графит" />
+    <p><b>Размер:</b> кроп-оверсайз</p>
+    <p><b>Цена:</b> 2249 ₽ + 270 ₽ доставка</p>
+  </div>
+
+  <h2>Форма заказа</h2>
+  <form id="orderForm">
+    <label>ФИО
+      <input type="text" name="fio" required />
+    </label>
+    <label>Номер телефона
+      <input type="tel" name="phone" required />
+    </label>
+    <label>Город
+      <input type="text" name="city" required />
+    </label>
+    <label>Адрес доставки
+      <textarea name="address" rows="3" required></textarea>
+    </label>
+    <button type="submit">Отправить заказ</button>
+  </form>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        product: 'LVSH «графит»',
+        size: 'кроп-оверсайз',
+        price: 2249,
+        delivery: 270,
+        fio: this.fio.value,
+        phone: this.phone.value,
+        city: this.city.value,
+        address: this.address.value,
+      };
+
+      // Отправляем данные в Telegram-бота
+      tg.sendData(JSON.stringify(data));
+
+      alert('Заказ отправлен! Спасибо.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
