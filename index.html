@@ -39,7 +39,7 @@
   </form>
 
   <script>
-    const tg = window.Telegram.WebApp;
+    const tg = window.Telegram?.WebApp;
 
     document.getElementById('orderForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -55,20 +55,14 @@
         address: this.address.value,
       };
 
-      const message = `
-📦 Новый заказ:
-ФИО: ${data.fio}
-Телефон: ${data.phone}
-Город: ${data.city}
-Адрес: ${data.address}
-Товар: ${data.product}
-Размер: ${data.size}
-Цена: ${data.price}₽ + ${data.delivery}₽ доставка
-      `;
+      alert('Отправляем заказ:\n' + JSON.stringify(data, null, 2));
 
-      tg.sendData(message.trim());
+      if (tg && tg.sendData) {
+        tg.sendData(JSON.stringify(data));
+      } else {
+        alert("⚠️ WebApp Telegram не найден. Откройте магазин через Telegram, чтобы отправить заказ.");
+      }
 
-      alert('Заказ отправлен! Спасибо.');
       this.reset();
     });
   </script>
