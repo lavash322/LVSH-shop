@@ -5,53 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LVSH Магазин</title>
   <style>
-    body, html {
-      margin: 0; padding: 0; height: 100%;
-      overflow-y: auto;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: 20px auto;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    .card {
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px;
-      width: 100%;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      position: relative;
-      z-index: 1;
-    }
-    form {
-      padding-bottom: 100px; /* чтобы кнопка не закрывалась клавиатурой */
-    }
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 20px auto; padding: 10px; }
+    .card { border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+    .card img { width: 100%; border-radius: 8px; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+    button { margin-top: 15px; padding: 10px; width: 100%; background: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -80,40 +39,25 @@
   </form>
 
   <script>
-    const tg = window.Telegram?.WebApp;
-
-    // Скроллим вниз при фокусе, чтобы кнопка была видна
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        setTimeout(() => {
-          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }, 300);
-      });
-    });
+    const tg = window.Telegram.WebApp;
 
     document.getElementById('orderForm').addEventListener('submit', function(event) {
       event.preventDefault();
-
-      if (!tg || !tg.sendData) {
-        alert("⚠️ Пожалуйста, открывайте магазин внутри Telegram.");
-        return;
-      }
 
       const data = {
         product: 'LVSH «графит»',
         size: 'кроп-оверсайз',
         price: 2249,
         delivery: 270,
-        fio: this.fio.value.trim(),
-        phone: this.phone.value.trim(),
-        city: this.city.value.trim(),
-        address: this.address.value.trim(),
+        fio: this.fio.value,
+        phone: this.phone.value,
+        city: this.city.value,
+        address: this.address.value,
       };
 
       tg.sendData(JSON.stringify(data));
 
-      alert('Спасибо! Ваш заказ отправлен.');
+      alert('Заказ отправлен! Спасибо.');
       this.reset();
     });
   </script>
